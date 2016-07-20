@@ -108,6 +108,14 @@ class Renderer extends PhpRenderer
         );
     }
 
+    public function appendHeadScript($jsFile, $type = 'text/javascript') {
+        $this->headScriptUrls[] = sprintf(
+            '<script src="%s" type=""%s"></script>',
+            $jsFile,
+            $type
+        );
+    }
+
     /**
      * @param $cssFile
      * @param string $media
@@ -133,6 +141,11 @@ class Renderer extends PhpRenderer
         return implode(PHP_EOL, $this->headStyleSheetFiles);
     }
 
+    public function headScript()
+    {
+        return implode(PHP_EOL, $this->headScriptUrls);
+    }
+
     public function bodyScript()
     {
         return implode(PHP_EOL, $this->bodyScriptUrls);
@@ -142,10 +155,6 @@ class Renderer extends PhpRenderer
     {
         return $this->_router->pathFor($routeName);
     }
-
-
-
-
 
 
 }
