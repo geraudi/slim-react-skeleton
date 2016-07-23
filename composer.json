@@ -1,7 +1,7 @@
 {
     "name": "Slim Framework 3 Skeleton Application and ReactJs",
     "description": "Slim Framework 3 Skeleton Application and ReactJs.",
-    "keywords": ["slim", "aura.di", "reactJs", "mocha"],
+    "keywords": ["slim", "aura.di", "webpack", "reactJs", "karma", "mocha"],
     "authors": [
         {
             "name": "Géraud Issertes",
