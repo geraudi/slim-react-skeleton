@@ -1,3 +1,5 @@
 /vendor/
 /app/log/
 /app/cache/
+.idea
+node_modules

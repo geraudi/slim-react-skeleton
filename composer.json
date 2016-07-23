@@ -1,11 +1,11 @@
 {
-    "name": "Slim Framework 3 Skeleton Application",
-    "description": "Slim Framework 3 Skeleton Application.",
-    "keywords": ["slim", "aura.di"],
+    "name": "Slim Framework 3 Skeleton Application and ReactJs",
+    "description": "Slim Framework 3 Skeleton Application and ReactJs.",
+    "keywords": ["slim", "aura.di", "reactJs", "mocha"],
     "authors": [
         {
             "name": "Géraud Issertes",
-            "email": "issertesgeraud@yahoo.fr",
+            "email": "issertesgeraud@yahoo.fr"
         }
     ],
 
