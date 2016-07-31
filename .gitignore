@@ -3,3 +3,4 @@
 /app/cache/
 .idea
 node_modules
+composer.lock

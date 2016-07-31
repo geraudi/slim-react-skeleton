@@ -1,0 +1,17 @@
+@import "variables.scss";
+@import "font.scss";
+@import "topnavbar.scss";
+
+body {
+  background-color:#f8f7f6;
+}
+
+.content-wrapper {
+  position: absolute;
+  top: 100px;
+  width: 100%;
+  min-height: 12%;
+  z-index: 2;
+  background: white;
+}
+

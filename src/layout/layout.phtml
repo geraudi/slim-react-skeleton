@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title><?= $this->headTitle(); ?></title>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:300,700,900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <?= $this->headLink() ?>
     <?= $this->headScript() ?>
 
@@ -13,13 +15,12 @@
 
 <body>
 
-<p>MAIN LAYOUT</p>
-
 <?= $this->content ?>
+
+<div id="app"></div>
 
 <?= $this->bodyScript() ?>
 
-<div id="app"></div>
 <script src="http://127.0.0.1:8080/js/bundle.js"></script>
 
 </body>

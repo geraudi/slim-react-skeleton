@@ -102,7 +102,7 @@ class Renderer extends PhpRenderer
      */
     public function appendBodyScript($jsFile, $type = 'text/javascript') {
         $this->bodyScriptUrls[] = sprintf(
-            '<script src="%s" type=""%s"></script>',
+            '<script src="%s" type="%s"></script>',
             $jsFile,
             $type
         );
@@ -110,7 +110,7 @@ class Renderer extends PhpRenderer
 
     public function appendHeadScript($jsFile, $type = 'text/javascript') {
         $this->headScriptUrls[] = sprintf(
-            '<script src="%s" type=""%s"></script>',
+            '<script src="%s" type="%s"></script>',
             $jsFile,
             $type
         );
@@ -128,8 +128,6 @@ class Renderer extends PhpRenderer
             $media
         );
     }
-
-
 
     public function headTitle()
     {
@@ -155,6 +153,5 @@ class Renderer extends PhpRenderer
     {
         return $this->_router->pathFor($routeName);
     }
-
 
 }

@@ -6,6 +6,8 @@ use Slim\Views\PhpRenderer;
 use Psr\Log\LoggerInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use Lib\Model\ModelFactory;
+
 
 abstract class AbstractController implements ControllerInterface
 {
@@ -21,11 +23,16 @@ abstract class AbstractController implements ControllerInterface
      */
     protected $logger;
 
+    /**
+     * @var ModelFactory
+     */
+    protected $modelFactory;
+
 
     /**
      * @var ResponseInterface
      */
-    protected $response;
+    public $response;
 
     /**
      * @var ServerRequestInterface
@@ -44,12 +51,14 @@ abstract class AbstractController implements ControllerInterface
     public function __construct(
         PhpRenderer $viewRenderer,
         LoggerInterface $logger,
-        $layoutPath = 'src/layout/'
+        $layoutPath = 'src/layout/',
+        ModelFactory $modelFactory
     )
     {
         $this->viewRenderer = $viewRenderer;
         $this->logger = $logger;
         $this->layoutPath = $layoutPath;
+        $this->modelFactory = $modelFactory;
         $this->init();
     }
 
@@ -75,9 +84,8 @@ abstract class AbstractController implements ControllerInterface
     {
         $this->request = $request;
         $this->response = $response;
-        $this->execute($args);
+        return $this->execute($args);
     }
-
 
     /**
      * Render Layout with embedded action response.

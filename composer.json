@@ -1,11 +1,13 @@
 {
-    "name": "Slim Framework 3 Skeleton Application and ReactJs",
-    "description": "Slim Framework 3 Skeleton Application and ReactJs.",
-    "keywords": ["slim", "aura.di", "webpack", "reactJs", "karma", "mocha"],
+    "name": "Fotoscity / Slim - React",
+    "description": "Fotoscity with Slime Framework and React.",
+    "keywords": ["Partage de photo"],
+    "homepage": "http://fotoscity.fr",
     "authors": [
         {
             "name": "Géraud Issertes",
-            "email": "issertesgeraud@yahoo.fr"
+            "email": "issertesgeraud@yahoo.fr",
+            "homepage": "http://fotoscity.fr/"
         }
     ],
 
@@ -14,7 +16,9 @@
         "slim/slim": "^3.1",
         "slim/php-view": "^2.0",
         "monolog/monolog": "^1.17",
-        "shameerc/slim3-aura-di": "^1.0"
+        "shameerc/slim3-aura-di": "^1.0",
+        "cocur/slugify": "^2.2",
+        "tuupola/slim-jwt-auth": "^2.3"
     },
 
     "autoload": {

@@ -1,6 +1,7 @@
 var path = require('path');
 var webpack = require("webpack");
 var node_modules = path.resolve(__dirname, 'node_modules');
+var autoprefixer = require('autoprefixer');
 
 
 module.exports = {
@@ -12,7 +13,7 @@ module.exports = {
     ],
 
     output: {
-        path: path.join(__dirname, 'src/js'),
+        path: path.join(__dirname, 'public/js'),
         filename: 'bundle.js',
         publicPath: 'http://127.0.0.1:8080/js/'
     },
@@ -25,18 +26,22 @@ module.exports = {
         loaders: [
             {
                 test: /\.jsx?$/,
-                loader: 'react-hot!babel-loader',
+                loaders: ['react-hot','babel-loader'],
                 exclude: /node_modules/
             },
             {
                 test: /\.scss$/,
-                loader: "style!css!autoprefixer!sass?outputStyle=expanded"
+                loaders: ['style', 'css', 'postcss', 'sass']
             },
             {
                 test: /\.css$/, // Only .css files
-                loader: 'style!css' // Run both loaders
+                loaders: ['style', 'css', 'postcss'] // Run both loaders
             }
         ]
+    },
+
+    postcss: function () {
+        return [autoprefixer];
     },
 
     plugins: [

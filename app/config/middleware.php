@@ -19,3 +19,16 @@ $app->add(function (Request $request, Response $response, callable $next) {
     }
     return $next($request, $response);
 });
+
+//$app->add(new \Slim\Middleware\JwtAuthentication([
+//    "path"        => "/api",
+//    "secure"      => true,
+//    "passthrough" => ["/api/v1/users/token"],
+//    "logger"      => $app->getContainer()->get('logger'),
+//    "relaxed"     => ["localhost", "fc.box"],
+//    "secret"      => "supersecretkeyyoushouldnotcommittogithub",
+//    "callback"    => function ($request, $response, $arguments) use ($di) {
+//        //Check role here
+//        return true;
+//    }
+//]));

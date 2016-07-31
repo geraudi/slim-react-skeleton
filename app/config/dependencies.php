@@ -1,5 +1,6 @@
 <?php
 // DIC configuration
+use Cocur\Slugify\Slugify;
 
 /** @var SlimAura\Container $di */
 $di = $app->getContainer();
@@ -44,9 +45,28 @@ $di->set('db', function () use ($di) {
     return $pdo;
 });
 
+$di->set('slugify', new Slugify());
+
+$di->params[Lib\Model\AbstractModel::class] = [
+    'db'      => $di->lazyGet('db'),
+    'slugify' => $di->lazyGet('slugify')
+];
+
+$di->params[Lib\Model\ModelFactory::class] = [
+    'map' => [
+        'user'     => $di->newFactory('Model\User'),
+        'category' => $di->newFactory('Model\Category'),
+    ],
+];
+
+$di->set('modelFactory', $di->lazyNew('Lib\Model\ModelFactory'));
+
 // -----------------------------------------------------------------------------
 // Controller factories
 // -----------------------------------------------------------------------------
 $di->params[Lib\Controller\AbstractController::class]['layoutPath'] = $settings['view']['layoutPath'];
 $di->params[Lib\Controller\AbstractController::class]['viewRenderer'] = $di->lazyGet('viewRenderer');
 $di->params[Lib\Controller\AbstractController::class]['logger'] = $di->lazyGet('logger');
+$di->params[Lib\Controller\AbstractController::class]['modelFactory'] = $di->lazyGet('modelFactory');
+
+

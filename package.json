@@ -1,20 +1,24 @@
 {
-  "name": "Slim_ReactJs",
+  "name": "Fotoscity",
   "version": "1.0.0",
-  "description": "Slim & React.",
+  "description": "Fotoscity with Slim & React.",
   "repository": {
     "type": "git",
-    "url": "git@github.com:geraudi/slim-skeleton.git"
+    "url": "git+ssh://git@gitlab.com/Fotoscity/slim.git"
   },
-  "author": "Géraud Issertes",
+  "author": "",
   "license": "ISC",
-  "homepage": "https://github.com/geraudi/slim-skeleton",
+  "bugs": {
+    "url": "https://gitlab.com/Fotoscity/slim/issues"
+  },
+  "homepage": "https://gitlab.com/Fotoscity/slim#README",
   "dependencies": {
+    "axios": "^0.13.1",
     "classnames": "^2.2.3",
     "history": "^3.0.0",
     "immutable": "^3.7.6",
     "interact.js": "^1.2.6",
-    "lodash": "^4.9.0",
+    "lodash": "^4.14.1",
     "npm": "^3.8.6",
     "purecss": "^0.6.0",
     "react": "^15.0.1",
@@ -23,11 +27,13 @@
     "react-redux": "^4.4.2",
     "react-router": "^2.0.1",
     "redux": "^3.4.0",
-    "redux-thunk": "^2.0.1",
+    "redux-logger": "^2.6.1",
+    "redux-thunk": "^2.1.0",
     "reselect": "^2.3.0",
     "webpack": "^1.13.1"
   },
   "devDependencies": {
+    "autoprefixer": "^6.3.7",
     "babel-loader": "^6.2.4",
     "babel-preset-es2015": "^6.9.0",
     "babel-preset-es2015-loose": "^7.0.0",
@@ -36,7 +42,7 @@
     "css-loader": "^0.23.1",
     "expect": "^1.20.1",
     "extract-text-webpack-plugin": "^1.0.1",
-    "karma": "^0.13.22",
+    "karma": "^1.1.2",
     "karma-chrome-launcher": "^1.0.1",
     "karma-cli": "^1.0.0",
     "karma-mocha": "^1.0.1",
@@ -44,16 +50,17 @@
     "karma-webpack": "^1.7.0",
     "mocha": "^2.5.3",
     "node-sass": "^3.8.0",
+    "postcss-loader": "^0.9.1",
     "react-addons-test-utils": "^15.1.0",
     "react-hot-loader": "^1.3.0",
     "redux-logger": "^2.6.1",
     "sass-loader": "^4.0.0",
     "style-loader": "^0.13.1",
     "webpack-dev-server": "^1.14.1",
-    "webpack-validator": "^2.2.3"
+    "webpack-validator": "^2.2.6"
   },
   "scripts": {
-    "validate": "webpack-validator webpack.config.js",
+    "validate": "webpack-validator webpack.config.js --env.dev",
     "start": "node webpack.dev-server.js",
     "test": "karma start"
   }

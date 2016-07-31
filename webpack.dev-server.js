@@ -7,6 +7,9 @@ new WebpackDevServer(
     {
         publicPath: config.output.publicPath,
         hot: true
+        // quiet: false,
+        // noInfo: false,
+        // historyApiFallback: true
     }
 ).listen(
     8080,

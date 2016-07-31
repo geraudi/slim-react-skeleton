@@ -15,9 +15,9 @@ return [
     ],
 
     'pdo' => [
-        'dns'      => 'mysql:dbname=my_db;host=127.0.0.1;charset=utf8',
+        'dns'      => 'mysql:dbname=#DBNAME#;host=127.0.0.1;charset=utf8',
         'user'     => 'root',
-        'password' => ''
+        'password' => 'root'
     ]
 
 ];
