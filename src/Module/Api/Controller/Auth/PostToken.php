@@ -13,8 +13,8 @@ class PostToken extends AbstractController
     public function execute($args)
     {
         $data = [
-            'success' => false,
-            'message' => 'Invalid credential'
+            'success' => true,
+            'message' => ''
         ];
         $httpStatusCode = 200;
 
@@ -25,22 +25,14 @@ class PostToken extends AbstractController
 
         if ($user = $userModel->authenticate($postParams['credential'], $postParams['password'])) {
 
-            $now = new \DateTime();
-            $future = new \DateTime("now +1 minute");
-            $server = $this->request->getServerParams();
-            $jti = base64_encode(random_bytes(16));
-            $payload = [
-                "iat" => $now->getTimestamp(),
-                "exp" => $future->getTimestamp(),
-                "jti" => $jti
-            ];
-            $secret = 'supersecretkeyyoushouldnotcommittogithub';
-            $token = JWT::encode($payload, $secret, "HS256");
-            $data["success"] = true;
-            $data["token"] = $token;
-            $data["user"] = $user;
+            $token = $this->jwtHelper->createToken(['user_id' => $user['id']]);
+            $data['token'] = $token;
+            $data['user'] = $user;
+
         } else {
             $httpStatusCode = 400;
+            $data['success'] = false;
+            $data['message'] = 'Invalid credential';
         }
 
         return $this->response->withJson($data, $httpStatusCode);

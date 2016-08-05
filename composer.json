@@ -17,8 +17,8 @@
         "slim/php-view": "^2.0",
         "monolog/monolog": "^1.17",
         "shameerc/slim3-aura-di": "^1.0",
-        "cocur/slugify": "^2.2",
-        "tuupola/slim-jwt-auth": "^2.3"
+        "tuupola/slim-jwt-auth": "^2.3",
+        "behat/transliterator": "^1.1"
     },
 
     "autoload": {

@@ -2,11 +2,11 @@
  * Created by geraud on 26/07/2016.
  */
 
-import * as authActionTypes from '../actions/auth/actionTypes'
+import * as authActionTypes from '../actions/auth/types'
 
 
 
-export default function auth(state = {isAuthenticated: false, user: {}, errors: []}, action) {
+export default function auth(state = {isAuthenticated: false, user: {}, token: '', errors: []}, action) {
 
     switch (action.type) {
 
@@ -28,6 +28,7 @@ export default function auth(state = {isAuthenticated: false, user: {}, errors: 
             return Object.assign({}, state, {
                 isAuthenticated: false,
                 user: {},
+                token:'',
                 errors: [action.message]
             });
 
@@ -35,6 +36,7 @@ export default function auth(state = {isAuthenticated: false, user: {}, errors: 
             return Object.assign({}, state, {
                 isAuthenticated: false,
                 errors: [],
+                token:'',
                 user: {}
             });
 

@@ -7,8 +7,6 @@
 
 namespace Lib\Model;
 
-use Cocur\Slugify\Slugify;
-
 abstract class AbstractModel
 {
 
@@ -16,18 +14,47 @@ abstract class AbstractModel
 
     protected $fieldSet = array();
 
+    protected $privateFields = array();
+
     /**
      * @var \PDO
      */
     private $_db;
 
-    public $slugify;
+    protected $_slubHandler;
 
 
-    public function __construct(\PDO $db, Slugify $slugify)
+    public function __construct(\PDO $db, $slugHandler)
     {
         $this->_db = $db;
-        $this->slugify = $slugify;
+        $this->_slubHandler = $slugHandler;
+    }
+
+    protected function _getPublicFields()
+    {
+        return array_diff($this->fieldSet, $this->privateFields);
+    }
+
+    protected function _transliterate($text)
+    {
+        return call_user_func($this->_slubHandler.'::transliterate', $text);
+    }
+
+    protected function _urlize($text)
+    {
+        return call_user_func($this->_slubHandler.'::urlize', $text);
+    }
+
+    protected function _canonicalize($text)
+    {
+        if (null === $text) {
+            return null;
+        }
+        $encoding = mb_detect_encoding($text);
+        $result = $encoding
+            ? mb_convert_case($text, MB_CASE_LOWER, $encoding)
+            : mb_convert_case($text, MB_CASE_LOWER);
+        return $result;
     }
 
     /**
@@ -50,11 +77,10 @@ abstract class AbstractModel
     public function getById($id)
     {
         $stmt = $this->getDb()->prepare(
-            ' SELECT ' . implode(',', $this->fieldSet) .
+            ' SELECT ' . implode(',', $this->_getPublicFields()) .
             ' FROM ' . $this->table .
             ' WHERE id = :id');
         $stmt->execute(['id' => $id]);
-        //$stmt->debugDumpParams();
 
         return $stmt->fetch();
     }

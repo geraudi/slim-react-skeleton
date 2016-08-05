@@ -15,9 +15,14 @@ return [
     ],
 
     'pdo' => [
-        'dns'      => 'mysql:dbname=#DBNAME#;host=127.0.0.1;charset=utf8',
+        'dns'      => 'mysql:dbname=my-db;host=127.0.0.1;charset=utf8',
         'user'     => 'root',
         'password' => 'root'
+    ],
+
+    'auth' => [
+        'jwtKey' => '6v9d5AN2Ka88E4dr',
+        'requestAttribute' => 'jwt',
     ]
 
 ];

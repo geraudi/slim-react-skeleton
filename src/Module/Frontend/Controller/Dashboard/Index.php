@@ -1,6 +1,6 @@
 <?php
 
-namespace Module\Frontend\Controller\Home;
+namespace Module\Frontend\Controller\Dashboard;
 
 use Lib\Controller\AbstractController;
 
@@ -12,14 +12,12 @@ class Index extends AbstractController
     {
         /** @var  \Lib\View\Renderer $viewRenderer */
         $viewRenderer = $this->viewRenderer;
-        $viewRenderer->setHeadTitle('Home');
-        $viewRenderer->appendStyleSheet('css/app.css');
-        $viewRenderer->appendBodyScript('js/app.js');
+        $viewRenderer->setHeadTitle('Dashboard');
+
     }
 
     public function execute($args)
     {
-        $this->logger->log(\Psr\Log\LogLevel::DEBUG, 'Home Index controller');
         $this->render();
     }
 

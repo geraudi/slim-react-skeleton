@@ -1,6 +1,5 @@
 <?php
 // DIC configuration
-use Cocur\Slugify\Slugify;
 
 /** @var SlimAura\Container $di */
 $di = $app->getContainer();
@@ -24,7 +23,11 @@ $di->set('callableResolver', new Lib\Di\CallableResolver($di));
 // -----------------------------------------------------------------------------
 
 // monolog
-$di->params['Monolog\Logger']['name'] = $settings['logger']['name'];
+$di->set('loggerNameSetting', function () use ($di) {
+    return $di->get('settings')['logger']['name'];
+});
+
+$di->params['Monolog\Logger']['name'] = $di->lazyGet('loggerNameSetting');
 
 $di->set('logger', function () use ($di) {
     $settings = $di->get('settings')['logger'];
@@ -45,11 +48,10 @@ $di->set('db', function () use ($di) {
     return $pdo;
 });
 
-$di->set('slugify', new Slugify());
-
+// Model
 $di->params[Lib\Model\AbstractModel::class] = [
-    'db'      => $di->lazyGet('db'),
-    'slugify' => $di->lazyGet('slugify')
+    'db'          => $di->lazyGet('db'),
+    'slugHandler' => \Behat\Transliterator\Transliterator::class
 ];
 
 $di->params[Lib\Model\ModelFactory::class] = [
@@ -58,15 +60,31 @@ $di->params[Lib\Model\ModelFactory::class] = [
         'category' => $di->newFactory('Model\Category'),
     ],
 ];
-
 $di->set('modelFactory', $di->lazyNew('Lib\Model\ModelFactory'));
+
+// JWT
+$di->set('jwtHelper', function () use ($di) {
+    $settings = $di->get('settings')['auth'];
+    return new \Lib\Helper\JwtHelper($settings['jwtKey'], $settings['requestAttribute']);
+});
+$di->params[Lib\Middleware\JwtIntercept::class]['jwtHelper'] = $di->lazyGet('jwtHelper');
+$di->set('jwtMiddleware', $di->lazyNew('Lib\Middleware\JwtIntercept'));
+
 
 // -----------------------------------------------------------------------------
 // Controller factories
 // -----------------------------------------------------------------------------
-$di->params[Lib\Controller\AbstractController::class]['layoutPath'] = $settings['view']['layoutPath'];
-$di->params[Lib\Controller\AbstractController::class]['viewRenderer'] = $di->lazyGet('viewRenderer');
-$di->params[Lib\Controller\AbstractController::class]['logger'] = $di->lazyGet('logger');
-$di->params[Lib\Controller\AbstractController::class]['modelFactory'] = $di->lazyGet('modelFactory');
+
+$di->set('layoutSetting', function () use ($di) {
+    return $di->get('settings')['view']['layoutPath'];
+});
+
+$di->params[Lib\Controller\AbstractController::class] = [
+    'layoutPath'   => $di->lazyGet('layoutSetting'),
+    'viewRenderer' => $di->lazyGet('viewRenderer'),
+    'logger'       => $di->lazyGet('logger'),
+    'modelFactory' => $di->lazyGet('modelFactory'),
+    'jwtHelper'    => $di->lazyGet('jwtHelper'),
+];
 
 

@@ -6,7 +6,7 @@
 export default function albums(state = {}, action) {
 
     switch (action.type) {
-        //toto
+        //todo
         default:
             return state
     }
